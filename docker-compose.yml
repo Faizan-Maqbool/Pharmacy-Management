@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  client:
+    build:
+      context: ./client
+    ports:
+      - "3000:80" # React on http://localhost:3000
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: ./server
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/pharmacy
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:6.0
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
