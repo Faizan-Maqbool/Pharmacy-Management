@@ -34,7 +34,7 @@ export function ProductList({ products, onAddToCart }) {
   function handleAdd(product) {
     onAddToCart({
       ...product,
-      quantity: quantities[product._id]
+      quantity: quantities[product._id],
     });
   }
 
@@ -49,11 +49,11 @@ export function ProductList({ products, onAddToCart }) {
     Painkillers: <HeartPulse className="w-8 h-8 text-red-500" />,
     Vitamins: <Stethoscope className="w-8 h-8 text-yellow-500" />,
     General: <ShieldCheck className="w-8 h-8 text-green-500" />,
-    Default: <Pill className="w-8 h-8 text-gray-500" />
+    Default: <Pill className="w-8 h-8 text-gray-500" />,
   };
 
   return (
-    <div className="productlist">
+    <div className="productlist" style={{ color: "blue" }}>
       <div className="productlist__header">
         <div className="productlist__title">Available Medicines</div>
         <div className="productlist__filter">
@@ -128,48 +128,34 @@ export function ProductList({ products, onAddToCart }) {
                   </div>
 
                   <div className="flex gap-2">
-  <button
-    type="button"
-    className="productcard__add"
-    style={{
-      display: "flex",
-      alignItems: "center",
-      gap: "4px",
-      padding: "6px 10px",
-      fontSize: "0.85rem",
-      borderRadius: "4px",
-      backgroundColor: "#4299e1",
-      color: "white",
-      minWidth: "110px"
-    }}
-    onClick={() => handleAdd(product)}
-  >
-    <ShoppingCart size={16} />
-    Add
-  </button>
+                    <button
+                      type="button"
+                      className="productcard__add"
+                      onClick={() => handleAdd(product)}
+                    >
+                      <ShoppingCart size={16} />
+                      Add to Cart
+                    </button>
 
-  <button
-    type="button"
-    className="productcard__remove"
-    style={{
-      backgroundColor: "#e53e3e",
-      color: "white",
-      padding: "6px 10px",
-      margin : "4px 2px 4px 2px",
-      borderRadius: "4px",
-      display: "flex",
-      alignItems: "center",
-      gap: "4px",
-      fontSize: "0.85rem",
-      minWidth: "90px"
-    }}
-    onClick={() => handleRemove(product._id)}
-  >
-    <Trash2 size={16} />
-    Remove
-  </button>
-</div>
-
+                    <button
+                      type="button"
+                      className="productcard__remove"
+                      style={{
+                        backgroundColor: "#e53e3e",
+                        color: "white",
+                        padding: "6px 10px",
+                        marginTop: "4px",
+                        borderRadius: "4px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                      }}
+                      onClick={() => handleRemove(product._id)}
+                    >
+                      <Trash2 size={16} />
+                      Remove
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

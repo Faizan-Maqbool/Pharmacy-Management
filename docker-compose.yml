@@ -4,28 +4,35 @@ services:
   client:
     build:
       context: ./client
+      args:
+        - REACT_APP_API_URL=http://3.94.88.44:4000/api
     ports:
-      - "3000:80" # React on http://localhost:3000
+      - "3000:80" # React app exposed on port 3000
+    restart: always
     depends_on:
       - server
+    networks:
+      - pharmacy-network
 
   server:
     build:
       context: ./server
     environment:
-      - MONGO_URI=mongodb://mongo:27017/pharmacy
+      - NODE_ENV=production
+      - PORT=4000
+      - MONGO_URI=mongodb+srv://faizanmaqbool047:7qCUc0zUorugmmz4@cluster0.66o5j.mongodb.net/chat_db?retryWrites=true&w=majority&appName=Cluster0
     ports:
-      - "4000:4000"
-    depends_on:
-      - mongo
-
-  mongo:
-    image: mongo:6.0
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
+      - "4000:4000" # Express API exposed on port 4000
+    restart: always
+    networks:
+      - pharmacy-network
     volumes:
-      - mongo_data:/data/db
+      - server_logs:/app/logs
+
+networks:
+  pharmacy-network:
+    driver: bridge
 
 volumes:
-  mongo_data:
+  server_logs:
+    driver: local

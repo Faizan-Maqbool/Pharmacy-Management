@@ -161,6 +161,14 @@ label {
 .cart__body {
   padding: 1.5rem;
 }
+.productform__header {
+  color: #ede9e9;
+  background-color: #7624fb;
+}
+.productlist__header {
+  color: #ede9e9;
+  background-color: #7624fb;
+}
 
 .cart__empty {
   display: flex;
