@@ -11,18 +11,11 @@ import {
   Stethoscope,
   Trash2
 } from "lucide-react";
-
 import "../App.css";
 
 export function ProductList({ products, onAddToCart }) {
-  const [productList, setProductList] = useState(products);
-
-  const [quantities, setQuantities] = useState(
-    products.reduce((acc, product) => {
-      acc[product._id] = 1;
-      return acc;
-    }, {})
-  );
+  // Quantities local state
+  const [quantities, setQuantities] = useState({});
 
   function handleQuantityChange(id, change) {
     setQuantities((prev) => {
@@ -34,14 +27,8 @@ export function ProductList({ products, onAddToCart }) {
   function handleAdd(product) {
     onAddToCart({
       ...product,
-      quantity: quantities[product._id],
+      quantity: quantities[product._id] || 1,
     });
-  }
-
-  function handleRemove(productId) {
-    setProductList((prevList) =>
-      prevList.filter((product) => product._id !== productId)
-    );
   }
 
   const categoryIcons = {
@@ -61,7 +48,7 @@ export function ProductList({ products, onAddToCart }) {
         </div>
       </div>
 
-      {productList.length === 0 ? (
+      {products.length === 0 ? (
         <div className="productlist__empty">
           <div className="productlist__empty-icon">
             <ShoppingCart size={48} />
@@ -71,7 +58,7 @@ export function ProductList({ products, onAddToCart }) {
         </div>
       ) : (
         <div className="productlist__grid">
-          {productList.map((product) => (
+          {products.map((product) => (
             <div
               key={product._id}
               className={`productcard ${
@@ -126,7 +113,6 @@ export function ProductList({ products, onAddToCart }) {
                       <Plus size={16} />
                     </button>
                   </div>
-
                   <div className="flex gap-2">
                     <button
                       type="button"
@@ -135,25 +121,6 @@ export function ProductList({ products, onAddToCart }) {
                     >
                       <ShoppingCart size={16} />
                       Add to Cart
-                    </button>
-
-                    <button
-                      type="button"
-                      className="productcard__remove"
-                      style={{
-                        backgroundColor: "#e53e3e",
-                        color: "white",
-                        padding: "6px 10px",
-                        marginTop: "4px",
-                        borderRadius: "4px",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "4px",
-                      }}
-                      onClick={() => handleRemove(product._id)}
-                    >
-                      <Trash2 size={16} />
-                      Remove
                     </button>
                   </div>
                 </div>
