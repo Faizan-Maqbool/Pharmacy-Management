@@ -1,36 +1,42 @@
 version: '3.8'
 
 services:
-  client:
+  pharmacy-client-ci:
     build:
       context: ./client
       args:
         - REACT_APP_API_URL=http://3.94.88.44:4000/api
+    container_name: pharmacy-client-ci
     ports:
-      - "3000:80" # React app exposed on port 3000
+      - "3100:80" # Jenkins-friendly: avoid 3000 conflicts
     restart: always
     depends_on:
-      - server
+      - pharmacy-server-ci
     networks:
-      - pharmacy-network
+      - pharmacy-ci-network
+    # Optional: Mount source for live reload/debug in CI
+    volumes:
+      - ./client:/app
 
-  server:
+  pharmacy-server-ci:
     build:
       context: ./server
+    container_name: pharmacy-server-ci
     environment:
       - NODE_ENV=production
-      - PORT=4000
+      - PORT=4100
       - MONGO_URI=mongodb+srv://faizanmaqbool047:7qCUc0zUorugmmz4@cluster0.66o5j.mongodb.net/chat_db?retryWrites=true&w=majority&appName=Cluster0
     ports:
-      - "4000:4000" # Express API exposed on port 4000
+      - "4100:4100" # Jenkins-friendly: avoid 4000 conflicts
     restart: always
     networks:
-      - pharmacy-network
+      - pharmacy-ci-network
     volumes:
       - server_logs:/app/logs
+      - ./server:/app
 
 networks:
-  pharmacy-network:
+  pharmacy-ci-network:
     driver: bridge
 
 volumes:
