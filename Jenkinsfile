@@ -26,7 +26,7 @@ pipeline {
     post {
         always {
             // Clean up containers after the job
-            sh "docker compose -p ${COMPOSE_PROJECT_NAME} -f ${COMPOSE_FILE} down || true"
+            sh "docker-compose -p ${env.COMPOSE_PROJECT_NAME} -f ${env.COMPOSE_FILE} down"
         }
     }
 }
