@@ -3,7 +3,7 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm install
+RUN npm install 
 COPY . ./
 # Add environment variable for production API URL
 ARG REACT_APP_API_URL=http://3.94.88.44:4000/api
