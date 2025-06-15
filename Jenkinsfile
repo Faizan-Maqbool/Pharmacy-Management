@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Faizan-Maqbool/Pharmacy-Management.git'
+                git branch: 'main', url: 'https://github.com/Faizan-Maqbool/Pharmacy-Management.git'
             }
         }
 
