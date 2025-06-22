@@ -25,7 +25,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=4100
-      - MONGO_URI=mongodb+srv://faizanmaqbool047:7qCUc0zUorugmmz4@cluster0.66o5j.mongodb.net/chat_db?retryWrites=true&w=majority&appName=Cluster0
+      - MONGO_URI=
     ports:
       - "4100:4100" # Jenkins-friendly: avoid 4000 conflicts
     restart: always
